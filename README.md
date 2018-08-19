@@ -8,7 +8,7 @@ Client : `gcc -o client client.c`
 
 To execute, follow an exemple: 
 
-Server : `./server 5152`
+Server : `./server 5152` <br/>
 Client : `./client 127.0.0.1 5152 yourmessage 2`
 
 
