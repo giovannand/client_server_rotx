@@ -143,12 +143,13 @@ int main(int argc, char *argv[]) {
 	if(count != sizeof(size_message))
 		logexit("send");
 
-	count3 	= send(s,&(code), sizeof(code), 0);
-	if(count3 != sizeof(code))
-		logexit("send");
-
 	count2 	= send(s, message, strlen(message), 0);
 	if(count2 != strlen(message))
+		logexit("send");
+
+
+	count3 	= send(s,&(code), sizeof(code), 0);
+	if(count3 != sizeof(code))
 		logexit("send");
 
 
