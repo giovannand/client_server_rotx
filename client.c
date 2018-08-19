@@ -79,7 +79,8 @@ int main(int argc, char *argv[]) {
 	//Preparando variaveis
 
 	code_int = atoi(argv[4]);
-	message = (char *)malloc(strlen(argv[3]) * sizeof(char));
+	message = (char*)calloc(strlen(argv[3]), sizeof(char));
+	
 	strcpy(message, argv[3]);
 
 	//Atribuindo valores

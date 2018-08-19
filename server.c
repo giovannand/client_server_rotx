@@ -65,15 +65,14 @@ void * client_thread(void *param) {
 		// }else{
 			logexit("recv");
 		}
-		
-		message =   (char *)malloc((size_message+1) * sizeof(char)); 
+	
+		message =   (char*)calloc(((size_message+1)), sizeof(char));
 		ssize_t c = recv(r, message, size_message, 0);
 		if (c <= 0) {
 		// 	printf("Received %d bytes. Message: %s \n", (int)c,message);
 		// }else { 
 			logexit("recv");
 		}
-		dencryptcifraDeCesar(message,strlen(message), ntohl(code));
 
 		ssize_t return_status2 = recv(r, &code, sizeof(code),0);
 		if (return_status2 <= 0) {
@@ -82,6 +81,7 @@ void * client_thread(void *param) {
 			logexit("recv");
 		}
 
+		dencryptcifraDeCesar(message,strlen(message), ntohl(code));
 //---------------------------------------------------
 
 	// sprintf(buf, "seu IP eh %s %d\n", ipcliente,		(int)ntohs(dd->addr.sin_port));
@@ -92,6 +92,7 @@ void * client_thread(void *param) {
 
     close(r);
 
+	
 	pthread_exit(EXIT_SUCCESS);
 }
 
