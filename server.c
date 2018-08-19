@@ -58,8 +58,8 @@ void * client_thread(void *param) {
 		char *message; 
 		uint32_t size_message;
 		uint32_t code;
-		sleep(20);
-		size_t return_status = recv(r, &size_message, sizeof(size_message),0);
+
+		ssize_t return_status = recv(r, &size_message, sizeof(size_message),0);
 		if (return_status <= 0) {
 		// 	fprintf(stdout, "Received %d bytes. Size message = %" PRIu32 "\n", (int)return_status,ntohl(size_message));
 		// }else{
@@ -67,7 +67,7 @@ void * client_thread(void *param) {
 		}
 		
 		message =   (char *)malloc((size_message+1) * sizeof(char)); 
-		size_t c = recv(r, message, size_message, 0);
+		ssize_t c = recv(r, message, size_message, 0);
 		if (c <= 0) {
 		// 	printf("Received %d bytes. Message: %s \n", (int)c,message);
 		// }else { 
@@ -75,7 +75,7 @@ void * client_thread(void *param) {
 		}
 		dencryptcifraDeCesar(message,strlen(message), ntohl(code));
 
-		size_t return_status2 = recv(r, &code, sizeof(code),0);
+		ssize_t return_status2 = recv(r, &code, sizeof(code),0);
 		if (return_status2 <= 0) {
 		// 	fprintf(stdout, "Received %d bytes. Code = %" PRIu32 "\n", (int)return_status,ntohl(code));
 		// }else {
