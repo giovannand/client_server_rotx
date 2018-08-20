@@ -68,7 +68,7 @@ void * client_thread(void *param) {
 		
 	
 		message =   (char*)calloc(((size_message+1)), sizeof(char));
-		ssize_t c = recv(r, message, size_message, 0);
+		ssize_t c = recv(r, message, ntohl(size_message), 0);
 		if (c <= 0) {
 		// }else { 
 			logexit("recv");
