@@ -61,25 +61,29 @@ void * client_thread(void *param) {
 
 		ssize_t return_status = recv(r, &size_message, sizeof(size_message),0);
 		if (return_status <= 0) {
-		// 	fprintf(stdout, "Received %d bytes. Size message = %" PRIu32 "\n", (int)return_status,ntohl(size_message));
 		// }else{
 			logexit("recv");
 		}
+		//  fprintf(stdout, "Received %d bytes. Size message = %" PRIu32 "\n", (int)return_status,ntohl(size_message));
+		
 	
 		message =   (char*)calloc(((size_message+1)), sizeof(char));
 		ssize_t c = recv(r, message, size_message, 0);
 		if (c <= 0) {
-		// 	printf("Received %d bytes. Message: %s \n", (int)c,message);
 		// }else { 
 			logexit("recv");
 		}
+			// fprintf(stdout, "Received %d bytes. Message = %s\n", (int)c,message);
+			// printf("Received %d bytes. Message: %s \n", (int)c,message);
+		
 
 		ssize_t return_status2 = recv(r, &code, sizeof(code),0);
 		if (return_status2 <= 0) {
-		// 	fprintf(stdout, "Received %d bytes. Code = %" PRIu32 "\n", (int)return_status,ntohl(code));
 		// }else {
 			logexit("recv");
 		}
+			// fprintf(stdout, "Received %d bytes. Code = %" PRIu32 "\n", (int)return_status,ntohl(code));
+		
 
 		dencryptcifraDeCesar(message,strlen(message), ntohl(code));
 //---------------------------------------------------
