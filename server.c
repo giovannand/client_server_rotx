@@ -49,11 +49,6 @@ void * client_thread(void *param) {
 	inet_ntop(AF_INET, &(dd->addr.sin_addr),
 			ipcliente, 512);
 
-	// printf("conexao de %s %d\n", ipcliente,(int)ntohs(dd->addr.sin_port));
-
-	// printf("thread %x esperando receber\n",(unsigned int)tid);
-
-    //---------------------------------------------------
 	    char buf[512];
 		char *message; 
 		uint32_t size_message;
@@ -61,38 +56,25 @@ void * client_thread(void *param) {
 
 		ssize_t return_status = recv(r, &size_message, sizeof(size_message),0);
 		if (return_status <= 0) {
-		// }else{
 			logexit("recv");
 		}
-		//  fprintf(stdout, "Received %d bytes. Size message = %" PRIu32 "\n", (int)return_status,ntohl(size_message));
-		
+	
 	
 		message =   (char*)calloc(((size_message+1)), sizeof(char));
 		ssize_t c = recv(r, message, ntohl(size_message), 0);
 		if (c <= 0) {
-		// }else { 
 			logexit("recv");
 		}
-			// fprintf(stdout, "Received %d bytes. Message = %s\n", (int)c,message);
-			// printf("Received %d bytes. Message: %s \n", (int)c,message);
-		
 
 		ssize_t return_status2 = recv(r, &code, sizeof(code),0);
 		if (return_status2 <= 0) {
-		// }else {
 			logexit("recv");
 		}
-			// fprintf(stdout, "Received %d bytes. Code = %" PRIu32 "\n", (int)return_status,ntohl(code));
-		
 
 		dencryptcifraDeCesar(message,strlen(message), ntohl(code));
-//---------------------------------------------------
 
-	// sprintf(buf, "seu IP eh %s %d\n", ipcliente,		(int)ntohs(dd->addr.sin_port));
-    // printf("\nEnviando %s\n", buf);
-	
+
     send(r, message, strlen(message), 0);
-    //  printf("\nEnviou\n");
 
     close(r);
 
@@ -132,7 +114,6 @@ int main(int argc, char *argv[])
 		logexit("bind");
 
 	if(listen(s, 10)) logexit("listen");
-	// printf("esperando conexao\n");
 
 	while(1) {
 		struct sockaddr_in raddr;
