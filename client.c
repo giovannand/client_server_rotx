@@ -44,7 +44,6 @@ void encryptCifraDeCesar(char *message,int size, int chave){
 		}
 
 	}
-//	printf("\nmessage %s",message);
 
 }
 
@@ -63,7 +62,6 @@ int verifyInput(char *message){
 
 int main(int argc, char *argv[]) {
     setvbuf(stdout, NULL, _IONBF, 0);
-///MUDA A DROGA DA ORDEM DOS PARAMETROS MENINA NAO ESQUECE DISSO PELO AMOR DA DEUSA
 
 	/*
 	 * Inicializando variaveis
@@ -74,7 +72,7 @@ int main(int argc, char *argv[]) {
 	uint32_t size_message;
 	uint32_t code;
 	ssize_t count,count2,count3;
-	char *message; 	/*APENAS [A-Z] - VER SE C IMPLEMENTA REGEX*/
+	char *message; 	
 
 	//Preparando variaveis
 
@@ -86,17 +84,13 @@ int main(int argc, char *argv[]) {
 	//Atribuindo valores
 
 	size_message = htonl(strlen(message));
-	//code = ( (*(uint32_t*)&code_int ) );
 	code = htonl(atoi(argv[4]));
 	port =  atoi(argv[2]);
-	//printf("%" PRIu32 "\n",code);
-
-
 
 	verification = verifyInput(message);
 
 	if (verification != 0)
-			return EXIT_FAILURE;
+		return EXIT_FAILURE;
 
 	encryptCifraDeCesar(message,strlen(message), atoi(argv[4]));
 
@@ -166,8 +160,6 @@ int main(int argc, char *argv[]) {
 		if(count == 0) break;
 		total += count;
 	}
-
-//	printf("received %d bytes\n", (int)total);
 	puts(buf);
 
 
